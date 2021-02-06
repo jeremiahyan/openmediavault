@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -318,7 +318,7 @@ Ext.define("OMV.module.admin.privilege.user.user.sshpubkeys.PubKey", {
 	textAreaConfig: {
 		readOnly: false,
 		allowBlank: false,
-		vtype: "sshPubKeyRFC4716"
+		vtype: "sshPubKey"
 	},
 
 	initComponent: function() {
@@ -329,7 +329,7 @@ Ext.define("OMV.module.admin.privilege.user.user.sshpubkeys.PubKey", {
 			xtype: "tiptoolbar",
 			dock: "bottom",
 			ui: "footer",
-			text: _("The public key in RFC 4716 SSH public key file format.")
+			text: _("The SSH public key in OpenSSH or RFC 4716 format.")
 		});
 	}
 });

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
  * @param hideCloseButton True to hide the 'Close' button.
  *   Defaults to true.
  * @param hideResetButton True to hide the 'Reset' button.
- *   Defaults to true.
+ *   Defaults to false.
  * @param okButtonText The button text. Defaults to 'Save'.
  * @param resetButtonText The button text. Defaults to 'Reset'.
  * @param cancelButtonText The button text. Defaults to 'Cancel'.

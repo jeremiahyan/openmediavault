@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ class Process {
 	private $redirect1toFile = FALSE;
 	private $redirect2toFile = FALSE;
 	private $inputFromFile = FALSE;
+	private $inputFromHereString = FALSE;
 	private $quiet = FALSE;
 	private $background = FALSE;
 	private $env = [
@@ -102,6 +103,16 @@ class Process {
 	}
 
 	/**
+	 * Accept input from a 'here-string'. Set to FALSE to do not accept
+	 * input from 'here-string'.
+	 * @param data The input string.
+	 * @return void
+	 */
+	public function setInputFromHereString($data) {
+		$this->inputFromHereString = $data;
+	}
+
+	/**
 	 * Do not throw an error exception if the command execution fails.
 	 * @param quiet Set to TRUE to do not throw an exception.
 	 *   Defaults to TRUE.
@@ -157,6 +168,8 @@ class Process {
 			$cmdArgs[] = sprintf("2>%s", $this->redirect2toFile);
 		if (FALSE === empty($this->inputFromFile))
 			$cmdArgs[] = sprintf("<%s", $this->inputFromFile);
+		if (FALSE === empty($this->inputFromHereString))
+			$cmdArgs[] = sprintf("<<<\"%s\"", $this->inputFromHereString);
 		if (TRUE === $this->background)
 			$cmdArgs[] = "&";
 		return implode(" ", $cmdArgs);
@@ -172,7 +185,7 @@ class Process {
 	 * @return The last line from the result of the command.
 	 * @throw \OMV\ExecException
 	 */
-	public function execute(array &$output = NULL, &$exitStatus = NULL) {
+	public function execute(array &$output = NULL, &$exitStatus = NULL): string {
 		// Build the command line.
 		$cmdLine = $this->getCommandLine();
 		// Execute the command.

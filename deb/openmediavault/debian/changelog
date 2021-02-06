@@ -1,3 +1,80 @@
+openmediavault (5.5.24-1) stable; urgency=low
+
+  * Improve UI to import a users public SSH key. Now SSH public keys
+    in RFC 4716 and OpenSSH format can be imported.
+  * Fix a SMB recycle bin cleanup script issue. Execute run-args with
+    the '--new-session' option to ensure the scripts will run until
+    completion. This should prevent subsequent locks.
+  * Remove 'No certificate request' option from 'FTP | SSL/TLS' page
+    because it is deprecated in proftpd.
+  * Improve monit/proftpd connection test. This should prevent errors
+    when SSL/TLS is enabled.
+  * Enable NTP by default on new installations.
+  * Fix a bug in omv-env when trying to set a string separated
+    by blanks.
+  * Issue #944: Hardening storage backend to prevent errors in LXC.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Tue, 19 Jan 2021 21:00:39 +0100
+
+openmediavault (5.5.23-1) stable; urgency=low
+
+  * Update locales.
+  * Issue #505: Prepend explanation to cron-apt notifications.
+  * Issue #926: Refactor code that is responsible for sending the
+    notification email on first UI log in.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Tue, 12 Jan 2021 13:11:06 +0100
+
+openmediavault (5.5.22-1) stable; urgency=low
+
+  * Fixing package management issue with new UDEV rules. The old
+    file was not removed automatically. Because of that please notice
+    the information about the new UDEV rules in 5.5.21.
+  * Fix monit/proftpd issue when implicit TLS is enabled.
+  * Issue #921: Prevent using WLAN NICs for bond and bridge interfaces.
+  * Issue #929: Set 'big_writes' as default mount option for NTFS
+    filesystems.
+  * Issue #930: Add UDEV rule for OWC Mercury Elite Pro Dual mini
+    enclosure to fix the random serial ID issue.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Fri, 08 Jan 2021 16:10:43 +0100
+
+openmediavault (5.5.21-1) stable; urgency=low
+
+  * Fixing a bug related to BTRFS which crashed the filesystem UI page.
+  * Improve UDEV rules to workaround a JMicron bug. Debugging should be
+    easier now because the serial_id helper tool behaves like scsi_id and
+    prints out the environment variable ID_SERIAL_SHORT.
+    If your USB enclosure reports the vendor 'JMICRON' for the attached
+    devices, then this modification might break your configuration because
+    the UDEV rule for those devices has been improved to apply to all
+    JMicron JMS578 SATA 6Gb/s based enclosures. You need to manually take
+    action to fix your configuration.
+    After installing this package your mounted filesystem configuration
+    might be broken. To fix that, you need to unmount and remount the
+    filesystems that are connected via this USB enclosure. If the
+    filesystem contains any shared folders, you can't unmount it, because
+    of that you need to delete all shared folders that are located on the
+    filesystem to be unmounted. That is only possible if the shared
+    folders are not used by any service, so make sure this applies to
+    these shared folders. After you've unmounted these filesystems in
+    the UI, apply the changes, reboot the system and then mount the
+    filesystems again. After that you can reconfigure your shared folders
+    and services from scratch. Sorry for this inconvenience.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Tue, 29 Dec 2020 20:45:44 +0100
+
+openmediavault (5.5.20-1) stable; urgency=low
+
+  * Improved PHP and Python block device and filesystem implementation.
+    Re-add usage of /dev/disk/by-uuid device files for all filesystems
+    (except BTRFS) to workaround problems with JMicron based USB enclosures.
+  * Issue #894: Disabled cron jobs are still executed.
+  * Issue #896: Improve UDEV rule to fix issues with JMS567 SATA 6Gb/s
+    bridge based USB enclosures.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sun, 27 Dec 2020 05:00:34 +0100
+
 openmediavault (5.5.19-1) stable; urgency=low
 
   * Issue #884: Do not bind session to IP address anymore.
@@ -35,15 +112,15 @@ openmediavault (5.5.17-1) stable; urgency=low
 
   * Update locales.
   * Issue #842: Fix bug in UDEV rules to workaround a JMicron bug.
-    If your USB controller reports the vendor 'JMICRON', then you might be
+    If your USB enclosure reports the vendor 'JMICRON', then you might be
     affected by this issue. After installing this package your mounted filesystem
     configuration might be broken. To fix that, you need to unmount and remount
-    the filesystems that are connected via this USB controller. If the filesystem
+    the filesystems that are connected via this USB enclosure. If the filesystem
     contains any shared folders, you can't unmount it, because of that you need to
     delete all shared folders that are located on the filesystem to be unmounted.
     That is only possible if the shared folders are not used by any service, so
     make sure this applies to these shared folders. After you've unmounted these
-    filesystems in the UI, apply the changes, reboot the system and the mount the
+    filesystems in the UI, apply the changes, reboot the system and then mount the
     filesystems again. After that you can reconfigure your shared folders and
     services from scratch. Sorry for this inconvenience.
   * Issue #846: Fix locking issue in SMB recycle bin cleanup and iptables scripts.

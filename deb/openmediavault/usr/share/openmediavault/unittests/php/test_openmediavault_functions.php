@@ -5,7 +5,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,6 +125,11 @@ class test_openmediavault_functions extends \PHPUnit\Framework\TestCase {
 		$this->assertEmpty($d_filtered);
 	}
 
+	public function test_array_filter_ex_fail() {
+		$d = array_filter_ex([1, 2, 3], "text", "b");
+		$this->assertNull($d);
+	}
+
 	public function test_boolvalEx() {
 		$this->assertTrue(boolvalEx(TRUE));
 		$this->assertTrue(boolvalEx("1"));
@@ -208,6 +213,14 @@ class test_openmediavault_functions extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals($path, "./../../");
 	}
 
+	public function test_build_path_7() {
+		$path = build_path(DIRECTORY_SEPARATOR,
+			"/srv/dev-disk-by-uuid-702d5556-0f91-4c45-94da-3415965011a2",
+			"data/");
+		$this->assertEquals($path,
+			"/srv/dev-disk-by-uuid-702d5556-0f91-4c45-94da-3415965011a2/data/");
+	}
+
 	public function test_json_encode_safe() {
 		$data = [
 			"z" => [1, 2, 3],
@@ -247,8 +260,7 @@ class test_openmediavault_functions extends \PHPUnit\Framework\TestCase {
 
 	public function test_array_unique_key_fail() {
 		$d = array_unique_key([1, 2, 3], "text");
-		$this->assertInternalType("bool", $d);
-		$this->assertFalse($d);
+		$this->assertNull($d);
 	}
 
 	public function test_escape_path() {
@@ -384,5 +396,11 @@ class test_openmediavault_functions extends \PHPUnit\Framework\TestCase {
 
 	public function test_is_assoc_array_4() {
 		$this->assertFalse(is_assoc_array('foo'));
+	}
+
+	public function test_strpdate() {
+		$ts = strpdate('Oct 19 04:24:38', 'M j G:i:s');
+		$this->assertInternalType('int', $ts);
+		$this->assertEquals($ts, 1634617478);
 	}
 }

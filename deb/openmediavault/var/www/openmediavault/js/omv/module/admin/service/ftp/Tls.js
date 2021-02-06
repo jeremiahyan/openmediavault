@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,12 +85,6 @@ Ext.define("OMV.module.admin.service.ftp.Tls", {
 				fieldLabel: _("Required"),
 				checked: false,
 				boxLabel: _("This option requires clients to use FTP over TLS when talking to this server.")
-			},{
-				xtype: "checkbox",
-				name: "nocertrequest",
-				fieldLabel: _("No certificate request"),
-				checked: false,
-				boxLabel: _("This option causes the server to not send a certificate request during a SSL handshake.")
 			},{
 				xtype: "checkbox",
 				name: "nosessionreuserequired",

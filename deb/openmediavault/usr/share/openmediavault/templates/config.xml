@@ -33,7 +33,7 @@
 		<time>
 			<timezone>Etc/UTC</timezone>
 			<ntp>
-				<enable>0</enable>
+				<enable>1</enable>
 				<timeservers>pool.ntp.org</timeservers>
 				<clients></clients>
 			</ntp>
@@ -436,7 +436,6 @@
 					<enable>0</enable>
 					<required>0</required>
 					<sslcertificateref></sslcertificateref>
-					<nocertrequest>0</nocertrequest>
 					<nosessionreuserequired>0</nosessionreuserequired>
 					<useimplicitssl>0</useimplicitssl>
 					<extraoptions></extraoptions>

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -134,7 +134,14 @@ abstract class BackendAbstract {
 		foreach(file("/proc/partitions") as $outputk => $outputv) {
 			if (1 !== preg_match($regex, $outputv, $matches))
 				continue;
-			$result[] = sprintf("/dev/%s", $matches[4]);
+			$deviceName = sprintf("/dev/%s", $matches[4]);
+			if (!file_exists($deviceName)) {
+				// Skip this device if it does not exist.
+				// This code path should only be entered when running in
+				// container environments like LXC.
+				continue;
+			}
+			$result[] = $deviceName;
 		}
 		return $result;
 	}

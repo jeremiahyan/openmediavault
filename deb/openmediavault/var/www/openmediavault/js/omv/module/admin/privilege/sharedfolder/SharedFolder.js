@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 // require("js/omv/WorkspaceManager.js")
 // require("js/omv/tree/Folder.js")
 // require("js/omv/window/Window.js")
+// require("js/omv/window/Execute.js")
 // require("js/omv/window/FolderBrowser.js")
 // require("js/omv/grid/Privileges.js")
 // require("js/omv/toolbar/Tip.js")
@@ -326,7 +327,8 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.ACL", {
 		"OMV.form.CompositeField",
 		"OMV.form.field.UnixFilePermComboBox",
 		"OMV.form.field.GroupComboBox",
-		"OMV.form.field.UserComboBox"
+		"OMV.form.field.UserComboBox",
+		"OMV.window.Execute"
 	],
 
 	readOnly: false,

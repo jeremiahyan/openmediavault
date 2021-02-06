@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2020 Volker Theile
+# @copyright Copyright (c) 2009-2021 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 
 set -e
 
-/sbin/hdparm -I $1 2>/dev/null | grep 'Serial\ Number' | awk '{print $3}' | tr -d '[:blank:]'
+. /usr/share/openmediavault/scripts/helper-functions
+
+omv_config_delete "/config/services/ftp/modules/mod_tls/nocertrequest"
 
 exit 0

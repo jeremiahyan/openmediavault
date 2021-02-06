@@ -2,7 +2,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2020 Volker Theile
+# @copyright Copyright (c) 2009-2021 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,6 +39,15 @@ create_cron-apt_config:
     - context:
         email_config: {{ email_config | json }}
         notification_config: {{ notification_config | json }}
+    - user: root
+    - group: root
+    - mode: 644
+
+create_cron-apt_download_msg:
+  file.managed:
+    - name: "/etc/cron-apt/mailmsg.d/3-download"
+    - source:
+      - salt://{{ tpldir }}/files/etc_cron-apt_mailmsgd_3-download.j2
     - user: root
     - group: root
     - mode: 644

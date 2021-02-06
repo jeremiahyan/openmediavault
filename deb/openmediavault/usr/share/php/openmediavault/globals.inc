@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2020 Volker Theile
+ * @copyright Copyright (c) 2009-2021 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ define("OMV_NETWORK_INTERFACE_TYPE_ALL", 0xFF);
 \OMV\Environment::set("OMV_FSTAB_MNTOPS_XFS", "defaults,nofail,usrquota,grpquota");
 \OMV\Environment::set("OMV_FSTAB_MNTOPS_EXFAT", "defaults,nofail");
 \OMV\Environment::set("OMV_FSTAB_MNTOPS_VFAT", "defaults,nofail");
-\OMV\Environment::set("OMV_FSTAB_MNTOPS_NTFS", "defaults,nofail");
+\OMV\Environment::set("OMV_FSTAB_MNTOPS_NTFS", "defaults,nofail,big_writes");
 \OMV\Environment::set("OMV_FSTAB_MNTOPS_HFSPLUS", "defaults,nofail,force");
 \OMV\Environment::set("OMV_FSTAB_MNTOPS_BTRFS", "defaults,nofail");
 \OMV\Environment::set("OMV_FSTAB_MNTOPS_ISO9660", "ro");

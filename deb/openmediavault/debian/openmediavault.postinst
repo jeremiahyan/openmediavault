@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2020 Volker Theile
+# @copyright Copyright (c) 2009-2021 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -114,8 +114,6 @@ case "$1" in
 			####################################################################
 			echo "Updating service units ..."
 			# Stop and disable various services that are disabled by default.
-			deb-systemd-helper disable chrony.service
-			deb-systemd-invoke stop chrony.service || :
 			deb-systemd-helper disable smartmontools.service
 			deb-systemd-invoke stop smartmontools.service || :
 			deb-systemd-helper disable rsync.service
@@ -195,7 +193,7 @@ case "$1" in
 			echo "Setting up system ..."
 			# Don't use omv-salt here, because the locale is not setup correct.
 			salt-call --local --retcode-passthrough --no-color state.orchestrate \
-			  omv.stage.setup >/dev/null
+				omv.stage.setup >/dev/null
 		fi
 
 		########################################################################
@@ -208,7 +206,7 @@ case "$1" in
 			# Deploy the configuration for various services.
 			echo "Deploying service configurations ..."
 			LANG=C.UTF-8 omv-salt deploy run --no-color --quiet \
-				mdadm cpufrequtils \
+				mdadm cpufrequtils chrony \
 				cronapt watchdog monit rrdcached avahi ssh nginx collectd \
 				phpfpm issue sysctl systemd systemd-logind || :
 		fi
@@ -272,6 +270,24 @@ case "$1" in
 		fi
 		if dpkg --compare-versions "$2" lt-nl "5.5.17"; then
 			omv_module_set_dirty iptables
+			omv_module_set_dirty samba
+		fi
+		if dpkg --compare-versions "$2" lt-nl "5.5.20"; then
+			omv_module_set_dirty cron
+			omv_module_set_dirty initramfs
+		fi
+		if dpkg --compare-versions "$2" lt-nl "5.5.21"; then
+			omv_module_set_dirty initramfs
+		fi
+		if dpkg --compare-versions "$2" lt-nl "5.5.22"; then
+			rm -f /etc/udev/rules.d/99-openmediavault-dev-disk-by-id.rules
+			omv_module_set_dirty monit
+			omv_module_set_dirty initramfs
+		fi
+		if dpkg --compare-versions "$2" lt-nl "5.5.23"; then
+			omv_module_set_dirty cronapt
+		fi
+		if dpkg --compare-versions "$2" lt-nl "5.5.24"; then
 			omv_module_set_dirty samba
 		fi
 
